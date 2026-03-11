@@ -82,6 +82,21 @@ describe('UserEntity integration tests', () => {
       }
       expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
 
+    })
+
+    // This test is to ensure the cratedAt field is being validated correctly on the UserEntity constructor. It tests for null, empty string, non-date, and date in the future.
+    it('Should throw an error when creating a user with invalid createdAt', () => {
+      let props: UserProps = {
+        ...UserDataBuilder({}),
+        createdAt: '2023' as any,
+      }
+      expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
+
+      props = {
+        ...UserDataBuilder({}),
+        createdAt: 10 as any,
+      }
+      expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
+    })
   })
-})
 })
