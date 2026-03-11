@@ -78,7 +78,7 @@ describe('UserEntity integration tests', () => {
 
       props = {
         ...UserDataBuilder({}),
-        password: 'a'.repeat(256),
+        password: 'a'.repeat(101),
       }
       expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
 
