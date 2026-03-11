@@ -29,7 +29,7 @@ describe('UserEntity integration tests', () => {
       }
       expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
     })
-
+    // This test is to ensure that the email field is being validated correctly on the UserEntity constructor. It tests for null, empty string, non-string, and string longer than 255 characters.
     it('Should throw an error when creating a user with invalid email', () => {
       let props: UserProps = {
         ...UserDataBuilder({}),
@@ -55,5 +55,33 @@ describe('UserEntity integration tests', () => {
       }
       expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
     })
+
+    // This test is to ensure that the password field is being validated correctly on the UserEntity constructor. It tests for null, empty string, non-string, and string longer than 255 characters.
+    it('Should throw an error when creating a user with invalid password', () => {
+      let props: UserProps = {
+        ...UserDataBuilder({}),
+        password: null,
+      }
+      expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
+
+      props = {
+        ...UserDataBuilder({}),
+        password: '',
+      }
+      expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
+
+      props = {
+        ...UserDataBuilder({}),
+        password: 10 as any,
+      }
+      expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
+
+      props = {
+        ...UserDataBuilder({}),
+        password: 'a'.repeat(256),
+      }
+      expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
+
   })
+})
 })
