@@ -81,7 +81,6 @@ describe('UserEntity integration tests', () => {
         password: 'a'.repeat(101),
       }
       expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
-
     })
 
     // This test is to ensure the cratedAt field is being validated correctly on the UserEntity constructor. It tests for null, empty string, non-date, and date in the future.
@@ -97,6 +96,15 @@ describe('UserEntity integration tests', () => {
         createdAt: 10 as any,
       }
       expect(() => new UserEntity(props)).toThrowError(EntityValidationError)
+    })
+
+    // This test is to ensure that a user can be created with valid properties.
+    it('Should create a user with valid properties', () => {
+      expect.assertions(0);
+      const props: UserProps ={
+        ...UserDataBuilder({}),
+      }
+      new UserEntity(props);
     })
   })
 })
